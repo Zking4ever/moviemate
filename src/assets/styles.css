@@ -28,12 +28,12 @@ section{
 .card{
     width:70px;
     height: 100px;
-    background-color: antiquewhite;
     border-radius: 5px;
     transition: all .5s ease;
+    background-position: center;
+    background-size: cover;
 }
 .card:nth-of-type(1){
-    background-color: red;
     animation: cardOneAnima 3s ease;
       transform: rotateZ(-12deg) translateX(20px);
 }
@@ -44,7 +44,6 @@ section{
     z-index: 1;
 }
 .card:nth-of-type(3){
-    background-color: red;
     animation: cardThreeAnima 3s ease;
     transform: rotateZ(12deg) translateX(-20px);
 }
@@ -67,6 +66,13 @@ section{
 .card:hover{
     transform: scale(1.1);
 }
+.offline{
+    background-color: red;
+}
+.offline:nth-of-type(2){
+    background-color: azure;
+}
+
 h2{
     margin: 5px;
 }
@@ -156,8 +162,9 @@ footer{
     text-align: left;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(transparent,black);
+    background: linear-gradient(transparent,rgba(0, 0, 0, 0.751),black);
     transition: all .5s ease;
+    opacity: 0;
 }
 .detail h3{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react'
 import './App.css'
 import '../src/assets/styles.css'
 import Header from '../src/components/Header'
+import Card from '../src/components/Card'
 import Movie from './components/Movie';
 
 
@@ -28,6 +29,14 @@ const getMovies = async() => {
       alert('Error fetching data');
   }
 } 
+const randomThree = () => {
+  const rand = Math.floor(Math.random() * (movies.length));
+   return <>
+         <Card title={movies[rand].title} rating={movies[rand].vote_average} posterPath={movies[rand].poster_path} key={movies[rand].id} date={movies[rand].release_date} />
+         <Card title={movies[rand+1].title} rating={movies[rand+1].vote_average} posterPath={movies[rand].poster_path} key={movies[rand].id} date={movies[rand].release_date} />
+         <Card title={movies[rand+2].title} rating={movies[rand+2].vote_average} posterPath={movies[rand].poster_path} key={movies[rand].id} date={movies[rand].release_date} />
+     </>
+}
 
   return (
     <>
@@ -35,9 +44,14 @@ const getMovies = async() => {
           <Header />
            <section>
               <div className="cards">
-                <div className="card"></div>
-                <div className="card"></div>
-                <div className="card"></div>
+                {
+                  (movies && movies.length!=0 ? randomThree() : 
+                <> 
+                  <div className="card offline"></div>
+                  <div className="card offline"></div>
+                  <div className="card offline"></div>
+                </>)
+                }
               </div>
               <h2>MovieMate</h2>
               <p>Get latest movies,watch for free</p>
@@ -68,9 +82,11 @@ const getMovies = async() => {
             <h2>Trending Movies</h2>
             <div className="movies">
              {
+              (movies ?
                movies.map( (movie) => (
-                <Movie title={movie.title} rating={movie.vote_average} posterPath={movie.poster_path} key={movie.id} />
+                <Movie title={movie.title} rating={movie.vote_average} posterPath={movie.poster_path} key={movie.id} date={movie.release_date} />
                 ) )
+                : "")
                 
              }
             </div>
