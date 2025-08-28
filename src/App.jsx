@@ -1,13 +1,33 @@
-import { useState } from 'react'
-import {Icons} from 'react';
+import { useState,useEffect } from 'react'
 import './App.css'
 import '../src/assets/styles.css'
 import Header from '../src/components/Header'
+import Movie from './components/Movie';
+
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [car,setCar] = useState(0);
-  
+
+const [movies,setMovies] = useState([]);
+useEffect( ()=> {
+  getMovies();
+},[])
+
+const getMovies = async() => {
+  try {
+        const response = await fetch('http://localhost:3200/',{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        const movie = JSON.parse(data.movies).results;
+        setMovies(movie);
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      alert('Error fetching data');
+  }
+} 
 
   return (
     <>
@@ -47,42 +67,12 @@ function App() {
            <section>
             <h2>Trending Movies</h2>
             <div className="movies">
-                <div className="movie" style={{backgroundImage:"url('../src/assets/Aesthetic Phone Mockup Instagram Post.png')"}}>
-                  <div className="detail">
-                    <h3>Spider Man</h3>
-                    <span>⭐7.5/10</span>
-                  </div>
-                </div>
-                <div className="movie">
-                  <div className="detail">
-                    <h3>Super Man</h3>
-                    <span>⭐7.5/10</span>
-                  </div>
-                </div>
-                <div className="movie">
-                  <div className="detail">
-                    <h3>Bat Man</h3>
-                    <span>⭐7.5/10</span>
-                  </div>
-                </div>
-                <div className="movie">
-                  <div className="detail">
-                    <h3>Spider Man</h3>
-                    <span>⭐7.5/10</span>
-                  </div>
-                </div>
-                <div className="movie">
-                  <div className="detail">
-                    <h3>Spider Man</h3>
-                    <span>⭐7.5/10</span>
-                  </div>
-                </div>
-                <div className="movie">
-                  <div className="detail">
-                    <h3>Spider Man</h3>
-                    <span>⭐7.5/10</span>
-                  </div>
-                </div>
+             {
+               movies.map( (movie) => (
+                <Movie title={movie.title} rating={movie.vote_average} posterPath={movie.poster_path} key={movie.id} />
+                ) )
+                
+             }
             </div>
            </section>
         </div>

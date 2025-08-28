@@ -73,9 +73,6 @@ h2{
 p{
     margin: 3px;
 }
-:root{
-    --grad : linear-gradient(rgba(0, 0, 255, 0.559),green);
-}
 section:nth-of-type(1){
     min-height: 72vh;
     align-items: center;
@@ -85,6 +82,7 @@ section:nth-of-type(2){
 }
 section:nth-of-type(3){
     min-height: 72vh;
+    padding-bottom: 50px;
     gap: 10px;
 }
 footer{
@@ -119,6 +117,11 @@ footer{
     padding: 5px 20px;
     border: solid;
     border-radius: 5px;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+.catGrid div:hover{
+    transform: scale(1.1);
 }
 .movies{
     display: grid;
@@ -133,7 +136,7 @@ footer{
     border-radius: 5px;
     justify-self: center;
     position: relative;
-    color: gray;
+    color: white;
     background-repeat: no-repeat;
     background-position:center;
     background-size: cover;
@@ -148,13 +151,65 @@ footer{
 .detail{
     position: absolute;
     bottom: 0;
+    width: 96%;
+    padding: 2%;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    opacity: 0;
-    padding: 5px;
-    text-align: left;
+    background: linear-gradient(transparent,black);
     transition: all .5s ease;
+}
+.detail h3{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
 }
 .detail *{
     margin: 0;
+}
+@media (max-width:760px) {
+    #root{
+        padding: 10px;
+    }
+    header{
+        padding-top: 20px;
+    }
+    nav{
+        display: none;
+
+    }
+    .card {
+        padding: 1em;
+        background-color: azure;
+    }
+    .catagory{
+        grid-template-columns: 100%;
+    }
+    .partOne{
+        border: none;
+    }
+    .movie{
+        width: 100%;
+    }
+    .movie:focus{
+        transform: scale(1.1);
+    }
+}
+
+@media (max-width:930px) {
+    .movies{
+        grid-template-columns: 25% 25% 25% 25%;
+    }
+}
+@media (max-width:760px) {
+    .movies{
+        grid-template-columns: 30% 30% 30%;
+    }
+}
+@media (max-width:460px) {
+    .movies{
+        grid-template-columns: 40% 40%;
+    }
 }
