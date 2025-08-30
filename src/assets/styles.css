@@ -26,12 +26,13 @@ section{
     gap: 14px;
 }
 .card{
-    width:70px;
-    height: 100px;
+    width:90px;
+    height: 160px;
     border-radius: 5px;
     transition: all .5s ease;
     background-position: center;
     background-size: cover;
+    cursor: pointer;
 }
 .card:nth-of-type(1){
     animation: cardOneAnima 3s ease;
@@ -39,14 +40,14 @@ section{
 }
 .card:nth-of-type(2){
     transform: translateY(-22px);
-    height: 110px;
-    width: 76px;
     z-index: 1;
+    border: solid #f0ffff4f;
 }
 .card:nth-of-type(3){
     animation: cardThreeAnima 3s ease;
     transform: rotateZ(12deg) translateX(-20px);
 }
+/*Card display animations*/
 @keyframes cardOneAnima {
     from{
         transform: rotateZ(0) translateX(50%) translateY(-10px);
@@ -65,12 +66,30 @@ section{
 }
 .card:hover{
     transform: scale(1.1);
+  filter: drop-shadow(0 0 1em #646cff6b);
+}
+.card:hover > .detail{
+    opacity: 1;
 }
 .offline{
-    background-color: red;
+    border: 1px solid #414141;
+    background-color: rgb(255, 255, 255,.1);
+    animation: offlineAnima 3s ease infinite;
+    animation-delay: 0s;
 }
 .offline:nth-of-type(2){
     background-color: azure;
+}
+@keyframes offlineAnima {
+    0%{
+        opacity: .1;
+    }
+    50%{
+        opacity: .8;
+    }
+    100%{
+        opacity: .1;
+    }
 }
 
 h2{
@@ -138,7 +157,6 @@ footer{
 .movie{
     width:165px;
     height: 236px;
-    background-color: antiquewhite;
     border-radius: 5px;
     justify-self: center;
     position: relative;
@@ -147,6 +165,7 @@ footer{
     background-position:center;
     background-size: cover;
     transition: all .5s ease;
+    cursor: pointer;
 }
 .movie:hover{
     transform: scale(1.1);
@@ -157,6 +176,7 @@ footer{
 .detail{
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 96%;
     padding: 2%;
     text-align: left;
@@ -189,7 +209,12 @@ footer{
     }
     .card {
         padding: 1em;
-        background-color: azure;
+        width:70px;
+        height: 100px;
+    }
+    .card:nth-of-type(2){
+        height: 110px;
+        width: 76px;
     }
     .catagory{
         grid-template-columns: 100%;

@@ -1,6 +1,6 @@
 function card({title, rating, posterPath,date }) {
     const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-    const year = new Date(date).getFullYear;
+    const year = new Date(date).getFullYear();
 
   return (
     <div className="card"  style={{backgroundImage:`url(${imageBaseUrl}${posterPath})`}}>
