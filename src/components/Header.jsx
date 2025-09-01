@@ -1,10 +1,10 @@
-function Hearder(){
+function Hearder({home}){
     return (
         <>
         <header> 
             <h2 className="mylogo">MovieMate</h2>
             <nav>
-                <a href="#">Home</a>
+                <a href="#" onClick={home}>Home</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
             </nav>

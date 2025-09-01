@@ -9,16 +9,18 @@ import {GenereData,MoodData} from "./assets/data"
 
 
 function App() {
+  const [isLoading,setIsLoading] = useState(false);
   const [isHome,setIsHome] = useState(true);
   const [catagory,SetCatagory] = useState([]);
 
   const [movies,setMovies] = useState([]);
   useEffect( ()=> {
-    //getMovies();
+    getMovies();
   },[])
 
   /* geting trending movies */
   const getMovies = async() => {
+    setIsLoading(true);
     try {
           const response = await fetch('http://localhost:3200/api/trending/movies/1',{
             method: 'GET',
@@ -28,7 +30,9 @@ function App() {
           });
           const data = await response.json();
           const movie = data.movies.results;
+          (isHome? "" : setIsHome(true));
           setMovies(movie);
+          setIsLoading(false);
     } catch (error) {
         console.error('Error fetching data from backend:', error);
         setMovies([]);
@@ -50,17 +54,24 @@ function App() {
       </>
   }
   const HomeComponents = ()=>{
-    const catagoryHandler = async(genereId)=>{
-        {/**
-            try {
+    //the index is used in the function to set the corresponding catagorydata
+    //we will use the key on the catagory data as index
+    const catagoryHandler = async(genereId,index)=>{
+       setIsLoading(true);
+       //if the type of index is string rhe catagory is from mood
+       ((typeof index) == "string" ? SetCatagory(MoodData[index]) : SetCatagory(GenereData[index]));
+        setIsHome(false);
+        try {
             const response = await fetch(`http://localhost:3200/api/movies/genere/${genereId}`);
             const data = await response.json();
             console.log(data);
+            setMovies(data.results);
         } catch (error) {
             console.log("Error occured from frontend getting by genere",error);
         }
-             */}
-             alert("clicked: "+genereId)
+        finally{
+            setIsLoading(false);
+        }
     }
 
     return <>
@@ -86,13 +97,13 @@ function App() {
                 <div className="partOne">
                     <h3>Mood</h3>
                     <div className="catGrid">
-                        { MoodData.map((value)=>( <Catagory customOnlCick={catagoryHandler} id={value.id} name={value.name} key={value.id}  />)) }
+                        { MoodData.map((value)=>( <Catagory customOnlCick={catagoryHandler} id={value.id} index={value.key}name={value.name} key={value.key}  />)) }
                     </div>
                 </div>
                 <div className="partTwo">
                     <h3>Genere</h3>
                     <div className="catGrid">
-                        { GenereData.map((value)=>( <Catagory name={value.name} id={value.id} key={value.id} />)) }
+                        { GenereData.map((value)=>( <Catagory customOnlCick={catagoryHandler} id={value.id} index={value.key} name={value.name} key={value.key} />)) }
                     </div>
                 </div>
               </div>
@@ -103,23 +114,26 @@ function App() {
   return (
     <>
         <div className="wrapper">
-          <Header />
-        {
-          (isHome ? <HomeComponents/> : "" )
-        }
-          
+            <Header home={getMovies} />
+            {
+              (isLoading? <p>Loading...</p>
+                :
+                  ( isHome ? <HomeComponents/> : 
+                  /*If its not home. display the corresponding catagories result */
+                  (catagory? <h2>Movies for "{catagory.name}"</h2>: <p>Reload the page</p>)
+                  )
+              )
+            }
            <section>
-            {isHome? <h2>Trending Movies</h2>
+            {isHome && !isLoading? <h2>Trending Movies</h2>
             : ""}
             <div className="movies">
              {
-              (movies && movies.length ?
+              (movies && movies.length && !isLoading?
                movies.map( (movie) => (
-                <>
                   <Movie title={movie.title} rating={movie.vote_average} posterPath={movie.poster_path} key={movie.id} date={movie.release_date} />
-                  <div style={{padding:10}}> <button>Previous</button>page 0 of 10 <button>Next</button></div>
-                </>
                 ) )
+
                 : <>
                     <div className='movie offline' ></div><div className='movie offline' style={{backgroundColor:"rgb(255, 255, 255,.1)"}}></div><div className='movie offline' ></div>
                     <div className='movie offline'></div><div className='movie offline' ></div>

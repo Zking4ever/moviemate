@@ -149,6 +149,7 @@ footer{
     transform: scale(1.1);
 }
 .movies{
+    width: 100%;
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
     justify-content: space-around;
