@@ -4,7 +4,7 @@ function Hearder({home}){
         <header> 
             <h2 className="mylogo">MovieMate</h2>
             <nav>
-                <a href="#" onClick={home}>Home</a>
+                <a href="#home" onClick={home}>Home</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
             </nav>

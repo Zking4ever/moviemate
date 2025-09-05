@@ -162,6 +162,7 @@ footer{
     justify-self: center;
     position: relative;
     color: white;
+    background: #2a3333cc;
     background-repeat: no-repeat;
     background-position:center;
     background-size: cover;

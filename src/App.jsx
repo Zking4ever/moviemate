@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react'
 import './App.css'
 import '../src/assets/styles.css'
 import Header from '../src/components/Header'
+import MovieInfo from '../src/components/MovieInfo'
 import Card from '../src/components/Card'
 import Catagory from '../src/components/Catagory'
 import Movie from './components/Movie';
@@ -12,8 +13,9 @@ function App() {
   const [isLoading,setIsLoading] = useState(false);
   const [isHome,setIsHome] = useState(true);
   const [catagory,SetCatagory] = useState([]);
-
   const [movies,setMovies] = useState([]);
+  const [movieInfo,setMovieInfo] = useState([]);
+  
   useEffect( ()=> {
     getMovies();
   },[])
@@ -110,17 +112,38 @@ function App() {
             </section>
     </>
   }
+
+const getMovieInfo = async(id)=>{
+      setIsLoading(true);
+        try {
+            const response = await fetch(`http://localhost:3200/api/movie/${id}`);
+            const data = await response.json();
+            console.log(data);
+            setMovieInfo(data);
+            setIsHome(false)
+            SetCatagory(null);
+
+        } catch (error) {
+            console.error("Error fetching from backend "+error);
+        }
+        finally{
+          setIsLoading(false);
+        }
+    }
   
   return (
     <>
         <div className="wrapper">
             <Header home={getMovies} />
             {
+              //check if loading then if its home page then if its on catagory or movieinfo
               (isLoading? <p>Loading...</p>
                 :
                   ( isHome ? <HomeComponents/> : 
                   /*If its not home. display the corresponding catagories result */
-                  (catagory? <h2>Movies for "{catagory.name}"</h2>: <p>Reload the page</p>)
+                  (catagory? <h2>Movies for "{catagory.name}"</h2>: 
+                    <MovieInfo Data={movieInfo} />
+                  )
                   )
               )
             }
@@ -131,7 +154,7 @@ function App() {
              {
               (movies && movies.length && !isLoading?
                movies.map( (movie) => (
-                  <Movie title={movie.title} rating={movie.vote_average} posterPath={movie.poster_path} key={movie.id} date={movie.release_date} />
+                  <Movie title={movie.title} clickHandler={getMovieInfo} rating={movie.vote_average} posterPath={movie.poster_path} movieid={movie.id} key={movie.id} date={movie.release_date} />
                 ) )
 
                 : <>
@@ -145,7 +168,7 @@ function App() {
         </div>
 
         <footer>
-          Contact
+          Contact information
         </footer>
     </>
   )

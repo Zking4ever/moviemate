@@ -6,7 +6,8 @@ function Catagory({name,customOnlCick,id,index}){
 
     //the index is used in the function to set the corresponding catagorydata
     return<>
-         <div onClick={()=>customOnlCick(id,index)} >{name}</div>
+         <div onClick={()=>customOnlCick(id,index)} >
+            {name}</div>
         </>
 }
 
