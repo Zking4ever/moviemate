@@ -1,13 +1,14 @@
-import { useState,useEffect } from 'react'
 import './App.css'
 import '../src/assets/styles.css'
+import { useState,useEffect } from 'react'
+import {GenereData,MoodData} from "./assets/data"
 import Header from '../src/components/Header'
-import MovieInfo from '../src/components/MovieInfo'
 import Card from '../src/components/Card'
 import Catagory from '../src/components/Catagory'
-import Movie from './components/Movie';
-import {GenereData,MoodData} from "./assets/data"
+import Movie from '../src/components/Movie'
+import MovieInfo from '../src/components/MovieInfo'
 
+const backendURL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [isLoading,setIsLoading] = useState(false);
@@ -24,12 +25,7 @@ function App() {
   const getMovies = async() => {
     setIsLoading(true);
     try {
-          const response = await fetch('http://localhost:3200/api/trending/movies/1',{
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
+          const response = await fetch(`${backendURL}/api/trending/movies/1`);
           const data = await response.json();
           const movie = data.movies.results;
           (isHome? "" : setIsHome(true));
@@ -40,6 +36,7 @@ function App() {
         setMovies([]);
     }
   } 
+  /* geting random three for the homepage(hero section) */
   const randomThree = () => {
     //lets create three random index to load movies
     const rand = Math.floor(Math.random() * (movies.length));
@@ -55,6 +52,7 @@ function App() {
           <Card title={movies[rand3].title} rating={movies[rand3].vote_average} posterPath={movies[rand3].poster_path} key={movies[rand3].id} date={movies[rand3].release_date} />
       </>
   }
+  
   const HomeComponents = ()=>{
     //the index is used in the function to set the corresponding catagorydata
     //we will use the key on the catagory data as index
@@ -64,7 +62,7 @@ function App() {
        ((typeof index) == "string" ? SetCatagory(MoodData[index]) : SetCatagory(GenereData[index]));
         setIsHome(false);
         try {
-            const response = await fetch(`http://localhost:3200/api/movies/genere/${genereId}`);
+            const response = await fetch(`${backendURL}/api/movies/genere/${genereId}`);
             const data = await response.json();
             console.log(data);
             setMovies(data.results);
@@ -90,7 +88,7 @@ function App() {
                   }
                 </div>
                 <h2>MovieMate</h2>
-                <p>Get latest movies,watch for free</p>
+                <p>Meet your next favorite movie</p>
             </section>
           {/* Catagories */}
             <section>
@@ -116,10 +114,12 @@ function App() {
 const getMovieInfo = async(id)=>{
       setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:3200/api/movie/${id}`);
+            const response = await fetch(`${backendURL}/api/movie/${id}`);
             const data = await response.json();
             console.log(data);
             setMovieInfo(data);
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
             setIsHome(false)
             SetCatagory(null);
 
@@ -142,7 +142,10 @@ const getMovieInfo = async(id)=>{
                   ( isHome ? <HomeComponents/> : 
                   /*If its not home. display the corresponding catagories result */
                   (catagory? <h2>Movies for "{catagory.name}"</h2>: 
-                    <MovieInfo Data={movieInfo} />
+                    <>
+                      <MovieInfo Data={movieInfo} />
+                      <h2 style={{textAlign:"left",marginLeft:50,marginTop:30}}>Related Movies</h2>
+                    </>
                   )
                   )
               )

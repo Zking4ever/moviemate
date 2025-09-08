@@ -1,9 +1,8 @@
 
 function Movie({ title,rating, posterPath,date,movieid,clickHandler }){
-    
+    //movie card component
     const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
     const year = new Date(date).getFullYear();
-
     return(
         <>
             <div className="movie" onClick={()=>clickHandler(movieid)} style={{backgroundImage:`url(${imageBaseUrl}${posterPath})`}}>

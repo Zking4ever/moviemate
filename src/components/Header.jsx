@@ -1,12 +1,11 @@
-function Hearder({home}){
+function Header({home}){
     return (
         <>
         <header> 
             <h2 className="mylogo">MovieMate</h2>
             <nav>
                 <a href="#home" onClick={home}>Home</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
+                <a href="#">Favorite</a>
             </nav>
             <button>Sign in</button >
         </header>
@@ -14,4 +13,4 @@ function Hearder({home}){
     )
 }
 
-export default Hearder;
+export default Header;
