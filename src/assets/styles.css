@@ -230,6 +230,17 @@ footer{
     .movie:focus{
         transform: scale(1.1);
     }
+    .poster{
+        width: 100%;
+        max-width: 200px;
+        max-height: 250px;
+    }
+}
+/*-----------------the movie info page-----------------*/
+@media (max-width:600px) {
+    .container{
+        flex-direction: column;
+    }
 }
 
 @media (max-width:930px) {

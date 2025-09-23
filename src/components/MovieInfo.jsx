@@ -23,7 +23,7 @@ function MovieInfo({Data}){
                 <p>Generes:{Data.genres.map((genere,i)=>(genere.name+(i!=Data.genres.length-1? ", ": "")))}</p>
                 <p>Votes:{Data.vote_count}</p>
             </div>
-            {videos.map((video)=>{var link="https://youtube.com/embed/"+video.key; return (video.type==="Trailer"&&video.name.toLowerCase().includes("official trailer")?<button onClick={()=>openTrailer(link)}>{video.name}</button> : "")})}
+            {videos.map((video)=>{var link="https://youtube.com/embed/"+video.key; return (video.type==="Trailer"&&video.name.toLowerCase().includes("official trailer")?<button onClick={()=>openTrailer(link)} style={{margin:5}}>{video.name}</button> : "")})}
             
         </div>
         <div className="trailer-container">

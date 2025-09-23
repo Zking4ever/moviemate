@@ -47,9 +47,9 @@ function App() {
     const rand3 = Math.floor((rand+rand2)%movies.length);
 
     return <>
-          <Card title={movies[rand].title} rating={movies[rand].vote_average} posterPath={movies[rand].poster_path} key={movies[rand].id} date={movies[rand].release_date} />
-          <Card title={movies[rand2].title} rating={movies[rand2].vote_average} posterPath={movies[rand2].poster_path} key={movies[rand2].id} date={movies[rand2].release_date} />
-          <Card title={movies[rand3].title} rating={movies[rand3].vote_average} posterPath={movies[rand3].poster_path} key={movies[rand3].id} date={movies[rand3].release_date} />
+          <Card title={movies[rand].title}  clickHandler={getMovieInfo} rating={movies[rand].vote_average} posterPath={movies[rand].poster_path} key={movies[rand].id} movieid={movies[rand].id} date={movies[rand].release_date} />
+          <Card title={movies[rand2].title} clickHandler={getMovieInfo} rating={movies[rand2].vote_average} posterPath={movies[rand2].poster_path} key={movies[rand2].id} movieid={movies[rand2].id} date={movies[rand2].release_date} />
+          <Card title={movies[rand3].title} clickHandler={getMovieInfo} rating={movies[rand3].vote_average} posterPath={movies[rand3].poster_path} key={movies[rand3].id} movieid={movies[rand3].id} date={movies[rand3].release_date} />
       </>
   }
   
