@@ -156,7 +156,7 @@ const getMovieInfo = async(id)=>{
         </div>
 
         <footer>
-          Contact information
+          Made with &#10084; by <a href='https://astawusamsalu.vercel.app' style={{color:'inherit', cursor:'pointer'}}>Astawus</a>. All rights reserved.
         </footer>
     </>
   )
