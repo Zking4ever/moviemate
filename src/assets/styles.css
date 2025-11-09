@@ -115,24 +115,13 @@ footer{
     width: 100%;
     background-color: #232361;
 }
-.catagory{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    justify-content: space-between;
-}
-.partOne{
-    border-right: solid;
-}
-.partOne,
-.partTwo{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    padding: 0 30px;
+.catagorySelector{
+    border-radius: 5px;
+    padding: 10px 30px;
+    width: 400px;
+    margin: 10px auto;
 }
 .catGrid{
-    width: 95%;
     display: grid;
     grid-template-columns: 30% 30% 30%;
     justify-content: space-around;

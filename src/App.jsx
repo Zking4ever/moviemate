@@ -4,7 +4,7 @@ import { useState,useEffect } from 'react'
 import {GenereData,MoodData} from "./assets/data"
 import Header from '../src/components/Header'
 import Card from '../src/components/Card'
-import Catagory from '../src/components/Catagory'
+import Catagories from '../src/components/Catagories'
 import Movie from '../src/components/Movie'
 import MovieInfo from '../src/components/MovieInfo'
 
@@ -57,6 +57,7 @@ function App() {
     //the index is used in the function to set the corresponding catagorydata
     //we will use the key on the catagory data as index
     const catagoryHandler = async(genereId,index)=>{
+      alert("Loading movies for the selected catagory. Please wait...");
        setIsLoading(true);
        //if the type of index is string rhe catagory is from mood
        ((typeof index) == "string" ? SetCatagory(MoodData[index]) : SetCatagory(GenereData[index]));
@@ -65,12 +66,12 @@ function App() {
             const response = await fetch(`${backendURL}/api/movies/genere/${genereId}`);
             const data = await response.json();
             console.log(data);
-            setMovies(data.results);
         } catch (error) {
             console.log("Error occured from frontend getting by genere",error);
         }
         finally{
             setIsLoading(false);
+            alert("Movies loaded for the selected catagory.");
         }
     }
 
@@ -91,23 +92,7 @@ function App() {
                 <p>Meet your next favorite movie</p>
             </section>
           {/* Catagories */}
-            <section>
-              <h2>Watch Based On</h2>
-              <div className="catagory">
-                <div className="partOne">
-                    <h3>Mood</h3>
-                    <div className="catGrid">
-                        { MoodData.map((value)=>( <Catagory customOnlCick={catagoryHandler} id={value.id} index={value.key}name={value.name} key={value.key}  />)) }
-                    </div>
-                </div>
-                <div className="partTwo">
-                    <h3>Genere</h3>
-                    <div className="catGrid">
-                        { GenereData.map((value)=>( <Catagory customOnlCick={catagoryHandler} id={value.id} index={value.key} name={value.name} key={value.key} />)) }
-                    </div>
-                </div>
-              </div>
-            </section>
+            <Catagories catagoryHandler={catagoryHandler}/>
     </>
   }
 

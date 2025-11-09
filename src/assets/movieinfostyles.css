@@ -3,15 +3,30 @@
     font-family: Arial, sans-serif;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
+    background-blend-mode:hue;
+    background-position: left calc((50vw - 170px) - 340px) top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-origin: padding-box;
+    padding: 20px ;
+}
+.overlay{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(to bottom right, rgba(31.5, 31.5, 31.5, 1), rgba(31.5, 31.5, 31.5, 0.84));
 }
 .poster{
-    width:400px;
-    height: 500px;
+    width:300px;
+    height: 450px;
     background-position: center;
     background-size: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
+    z-index: 1;
 }
 .discription{
     max-width: 500px;
