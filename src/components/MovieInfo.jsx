@@ -1,6 +1,6 @@
 import '../assets/movieinfostyles.css';
 function MovieInfo({Data}){
-    const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+    const imageBaseUrl = "https://image.tmdb.org/t/p/original";
     const videos = Data.videos?.results;
     const openTrailer = (link)=>{
         document.getElementById('trailer').src=link;
@@ -11,8 +11,7 @@ function MovieInfo({Data}){
         document.querySelector('.trailer-container').style.display="none";
     }
      return<>
-     <div className="container" style={{backgroundImage:`url(${imageBaseUrl}${Data.poster_path})`}}>
-         <div className="overlay"></div>
+     <div className="container" style={{backgroundImage:` linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url(${imageBaseUrl}${Data.poster_path})`}}>
         <div className='poster' style={{backgroundImage:`url(${imageBaseUrl}${Data.poster_path})`}}></div>
         <div className="discription">
             <h2>{Data.original_title}</h2>
@@ -24,7 +23,7 @@ function MovieInfo({Data}){
                 <p>Generes:{Data?.genres.map((genere,i)=>(genere.name+(i!=Data.genres.length-1? ", ": "")))}</p>
                 <p>Votes:{Data.vote_count}</p>
             </div>
-            {videos.map((video)=>{var link="https://youtube.com/embed/"+video.key; return (video.type==="Trailer"&&video.name.toLowerCase().includes("official trailer")?<button onClick={()=>openTrailer(link)} style={{margin:5}}>{video.name}</button> : "")})}
+            {videos.map((video)=>{var link="https://youtube.com/embed/"+video.key; return (video.type==="Trailer"&&video.name.toLowerCase().includes("official trailer")?<button onClick={()=>openTrailer(link)} key={link} style={{margin:5}}>{video.name}</button> : "")})}
             
         </div>
         <div className="trailer-container">

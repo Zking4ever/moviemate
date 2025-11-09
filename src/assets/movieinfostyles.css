@@ -1,22 +1,23 @@
 .container{
     display: flex;
     font-family: Arial, sans-serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    background-blend-mode:hue;
-    background-position: left calc((50vw - 170px) - 340px) top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: scroll;
-    background-clip: border-box;
-    background-origin: padding-box;
     padding: 20px ;
+    background-blend-mode:hue;
+    background-position-x: center;
+    background-size: cover;
+    filter: blur(.12px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
-.overlay{
-    width: 100%;
+.container::before{
     position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, rgba(31.5, 31.5, 31.5, 1), rgba(31.5, 31.5, 31.5, 0.84));
+    background: linear-gradient(to bottom right, rgba(31.5, 31.5, 31.5, .5), rgba(31.5, 31.5, 31.5, 0.84));
 }
 .poster{
     width:300px;
@@ -32,16 +33,18 @@
     max-width: 500px;
     padding-left: 20px;
     text-align: left;
+    mix-blend-mode: difference;
 }
 .discription h2{
     margin: 0;
 }
 .discription h5{
-    color: #8f8d8d;
+    color: #847373;
     margin: 3px;
 }
 .details{
-    color: #a3a3a3;
+    mix-blend-mode: difference;
+    opacity: .9;
     margin-top: 10px;
 }
 .trailer-container{
@@ -55,6 +58,7 @@
     background-color: #a3a3a3;
     transition: all 0.3s ease;
     display: none;
+    z-index: 2;
 }
 .trailer-container iframe{
     width: 100%;
@@ -86,4 +90,32 @@
     right: 5px;
     transition: all 0.3s ease;
     opacity: 0;
+}
+/*-----------------the movie info page-----------------*/
+@media (max-width:730px) {
+    .container{
+        flex-direction: column;
+    }
+    .discription{
+        max-width: unset;
+        padding-left: 0px;
+    }
+}
+@media (max-width:500px) {
+    .container{
+        width: 94%;
+        padding: 10px;
+    }
+    .trailer-container{
+        width: 100%;
+        left: 0;
+        transform: translateX(0);
+        border-radius: 0px;
+        background-color: #a3a3a300;
+        top: 50%;
+    }
+    .trailer-container iframe{
+        height: 250px;
+
+    }
 }
